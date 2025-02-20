@@ -11,7 +11,24 @@ const Shop = () => {
     const [cart, setCart] = useState([])
 
     const {count} = useLoaderData();
-    console.log(count);
+    const itemsPerPage = 10;
+    const numberOfPages = Math.ceil(count / itemsPerPage);
+ 
+    /* const pageNumbers = []; 
+    for (let i = 0; i < numberOfPages; i++) {
+        pageNumbers.push(i);
+    }
+    console.log(pageNumbers); */
+
+    //short way to create page numbers
+    const pageNumbers = [...Array(numberOfPages).keys()];
+    console.log(pageNumbers);
+
+    /* 
+    1. to do 1: get the total count of products
+    2. to do 2: numbers of items in per page
+    3. to do 3: add products to the state   
+    */
 
     useEffect(() => {
         fetch('http://localhost:5000/products')
@@ -85,6 +102,11 @@ const Shop = () => {
                         <button className='btn-proceed'>Review Order</button>
                     </Link>
                 </Cart>
+            </div>
+            <div className='pagination'>
+                {
+                    pageNumbers.map(page => <button key={page}>{page}</button>)
+                }
             </div>
         </div>
     );
